@@ -63,9 +63,8 @@ class WordleSolver:
 
         user_feedback = input('Select mode, auto or manual:')
 
-
-        if user_feedback == 'auto':
-            guess = 'audio'
+        if user_feedback.startswith('a'):
+            guess = 'crane'
             print("My guess is:", guess, end="\n")
             user_feedback = input('Enter your feedback:\n')
             while user_feedback != "stop":
