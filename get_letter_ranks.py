@@ -9,10 +9,10 @@ for letter in 'abcdefghijklmnopqrstuvwxyz':
         if letter in word:
             letter_count[letter] += 1
 
-letters = [letter for letter, count in sorted(letter_count.items(), key=lambda x: x[1], reverse=True)]
+letters = [letter for letter, count in sorted(letter_count.items(), key=lambda x: x[1])]
 letter_ranks = dict()
 
 for index, letter in enumerate(letters):
-    letter_ranks[letter] = 25 - index
+    letter_ranks[letter] = index
 
 print(letter_ranks)
