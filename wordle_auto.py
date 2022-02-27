@@ -1,21 +1,11 @@
-import functools
-
+# letter priorities set based on their occurrence in the different words
 letter_priorities = {'e': 25, 'a': 24, 'r': 23, 'o': 22, 't': 21, 'l': 20, 'i': 19, 's': 18, 'n': 17, 'u': 16, 'c': 15,
                      'y': 14, 'h': 13, 'd': 12, 'p': 11, 'g': 10, 'm': 9, 'b': 8, 'f': 7, 'k': 6, 'w': 5, 'v': 4,
                      'x': 3, 'z': 2, 'q': 1, 'j': 0}
 
 
-def unique_letters(word1, word2):
-    len1 = len(set(word1))
-    len2 = len(set(word2))
-    if len1 > len2:
-        return -1
-    elif len2 < len1:
-        return 1
-    else:
-        total_priority1 = sum([letter_priorities[letter] for letter in word1])
-        total_priority2 = sum([letter_priorities[letter] for letter in word2])
-        return -1 if total_priority1 > total_priority2 else 1
+def get_tuple_for_comp(word):
+    return len(set(word)), sum([letter_priorities[letter] for letter in word]), word
 
 
 class WordleSolver:
@@ -23,7 +13,9 @@ class WordleSolver:
     def __init__(self):
         with open('word_list.txt') as f:
             lines = f.read().splitlines()
-        self.word_list = sorted(lines, key=functools.cmp_to_key(unique_letters))
+        word_tuples = [get_tuple_for_comp(word) for word in lines]
+        word_tuples.sort(reverse=True)
+        self.word_list = [x[2] for x in word_tuples]
         self.get_user_input()
 
     def update_word_list(self, word, feedback):
