@@ -9,13 +9,13 @@ def unique_letters(word1, word2):
     len1 = len(set(word1))
     len2 = len(set(word2))
     if len1 > len2:
-        return 1
-    elif len2 < len1:
         return -1
+    elif len2 < len1:
+        return 1
     else:
         total_priority1 = sum([letter_priorities[letter] for letter in word1])
         total_priority2 = sum([letter_priorities[letter] for letter in word2])
-        return 1 if total_priority1 > total_priority2 else -1
+        return -1 if total_priority1 > total_priority2 else 1
 
 
 class WordleSolver:
@@ -23,7 +23,7 @@ class WordleSolver:
     def __init__(self):
         with open('word_list.txt') as f:
             lines = f.read().splitlines()
-        self.word_list = sorted(lines, key=functools.cmp_to_key(unique_letters), reverse=True)
+        self.word_list = sorted(lines, key=functools.cmp_to_key(unique_letters))
         self.get_user_input()
 
     def update_word_list(self, word, feedback):
